@@ -10,14 +10,13 @@ mkdir -p \
     "$HOME/Videos"
 
 # Install essential command-line utilities.
-doas apk add \
-    curl \
-    wget \
-    unzip \
-    dos2unix \
-    tree \
-    fzf \
-    nano \
-    bat \
-    lsd \
-    figlet
+doas apk add curl
+doas apk add wget
+doas apk add unzip
+doas apk add dos2unix
+doas apk add tree
+doas apk add fzf
+doas apk add nano
+doas apk add bat
+doas apk add lsd
+doas apk add figlet
