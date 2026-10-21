@@ -9,3 +9,5 @@ All content in this repository must be written in English.
 - Use POSIX `sh` for bootstrapping so a fresh Alpine installation can run scripts without first installing Bash.
 - Do not silently replace a user's existing configuration or change the root login shell.
 - Keep package installation explicit and prefer Alpine's `apk` packages over Debian binaries.
+- Use one `apk add` command per package on its own line so individual packages can be commented out easily. In ordinary user installers use `doas apk add PACKAGE`; in root-only bootstrap scripts use `apk add PACKAGE`.
+- Assume the Alpine `community` repository is enabled; do not add temporary repository URL handling to ordinary installers.
