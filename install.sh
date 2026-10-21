@@ -23,3 +23,6 @@ sh "$HOME/.config/init-alpine/basics/time/install.sh"
 
 # Keyboard
 sh "$HOME/.config/init-alpine/basics/keyboard/install.sh"
+
+# Bluetooth
+sh "$HOME/.config/init-alpine/basics/bluetooth/install.sh"
