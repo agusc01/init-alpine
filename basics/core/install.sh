@@ -2,12 +2,11 @@
 set -eu
 
 # Create user directories.
-mkdir -p \
-    "$HOME/Downloads" \
-    "$HOME/Documents" \
-    "$HOME/Music" \
-    "$HOME/Pictures" \
-    "$HOME/Videos"
+mkdir -vp "$HOME/Downloads"
+mkdir -vp "$HOME/Documents"
+mkdir -vp "$HOME/Music"
+mkdir -vp "$HOME/Pictures"
+mkdir -vp "$HOME/Videos"
 
 # Install essential command-line utilities.
 doas apk add curl
