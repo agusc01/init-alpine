@@ -10,5 +10,6 @@ All content in this repository must be written in English.
 - Do not silently replace a user's existing configuration or change the root login shell.
 - Keep package installation explicit and prefer Alpine's `apk` packages over Debian binaries.
 - Use one `apk add` command per package on its own line so individual packages can be commented out easily. In ordinary user installers use `doas apk add PACKAGE`; in root-only bootstrap scripts use `apk add PACKAGE`.
+- Add a short English comment beside each package installation explaining what the package provides or why it is needed. Prefer inline comments for easy reading and editing.
 - Prefer verbose output for all commands whenever the command supports it, especially filesystem changes (`mkdir -vp`, `rmdir -v`, `rm -v`, `cp -v`, `mv -v`, and `ln -v`). Keep one filesystem target per command so individual operations are easy to comment out. Never add destructive flags such as `rm -rf` merely for convenience; protect intentional deletions and avoid overwriting user data.
 - Assume the Alpine `community` repository is enabled; do not add temporary repository URL handling to ordinary installers.
