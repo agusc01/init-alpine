@@ -20,3 +20,6 @@ sh "$HOME/.config/init-alpine/basics/disk/install.sh"
 
 # Time
 sh "$HOME/.config/init-alpine/basics/time/install.sh"
+
+# Keyboard
+sh "$HOME/.config/init-alpine/basics/keyboard/install.sh"
