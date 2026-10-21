@@ -26,3 +26,6 @@ sh "$HOME/.config/init-alpine/basics/keyboard/install.sh"
 
 # Bluetooth
 sh "$HOME/.config/init-alpine/basics/bluetooth/install.sh"
+
+# Wi-Fi
+sh "$HOME/.config/init-alpine/basics/wifi/install.sh"
