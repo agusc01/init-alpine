@@ -35,3 +35,6 @@ sh "$HOME/.config/init-alpine/basics/camera/install.sh"
 
 # Images
 sh "$HOME/.config/init-alpine/basics/images/install.sh"
+
+# PDF
+sh "$HOME/.config/init-alpine/basics/pdf/install.sh"
