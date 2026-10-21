@@ -32,3 +32,6 @@ sh "$HOME/.config/init-alpine/basics/wifi/install.sh"
 
 # Camera
 sh "$HOME/.config/init-alpine/basics/camera/install.sh"
+
+# Images
+sh "$HOME/.config/init-alpine/basics/images/install.sh"
