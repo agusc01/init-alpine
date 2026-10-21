@@ -5,7 +5,8 @@ PATH="$PATH:/sbin:/usr/sbin"
 export PATH
 
 # Install ALSA.
-doas apk add alsa-utils alsa-utils-openrc
+doas apk add alsa-utils
+doas apk add alsa-utils-openrc
 
 # Grant audio access to the current user.
 username=$(id -un)
