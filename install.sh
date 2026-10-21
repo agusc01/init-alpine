@@ -29,3 +29,6 @@ sh "$HOME/.config/init-alpine/basics/bluetooth/install.sh"
 
 # Wi-Fi
 sh "$HOME/.config/init-alpine/basics/wifi/install.sh"
+
+# Camera
+sh "$HOME/.config/init-alpine/basics/camera/install.sh"
