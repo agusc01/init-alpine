@@ -38,3 +38,6 @@ sh "$HOME/.config/init-alpine/basics/images/install.sh"
 
 # PDF
 sh "$HOME/.config/init-alpine/basics/pdf/install.sh"
+
+# Video
+sh "$HOME/.config/init-alpine/basics/video/install.sh"
