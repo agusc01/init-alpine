@@ -17,3 +17,6 @@ sh "$HOME/.config/init-alpine/basics/core/install.sh"
 
 # Disk
 sh "$HOME/.config/init-alpine/basics/disk/install.sh"
+
+# Time
+sh "$HOME/.config/init-alpine/basics/time/install.sh"
