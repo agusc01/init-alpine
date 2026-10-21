@@ -44,3 +44,6 @@ sh "$HOME/.config/init-alpine/basics/video/install.sh"
 
 # Maths
 sh "$HOME/.config/init-alpine/basics/maths/install.sh"
+
+# Office
+sh "$HOME/.config/init-alpine/basics/office/install.sh"
