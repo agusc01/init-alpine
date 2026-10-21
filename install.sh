@@ -47,3 +47,6 @@ sh "$HOME/.config/init-alpine/basics/maths/install.sh"
 
 # Office
 sh "$HOME/.config/init-alpine/basics/office/install.sh"
+
+# Screen
+sh "$HOME/.config/init-alpine/basics/screen/install.sh"
