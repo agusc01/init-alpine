@@ -57,7 +57,9 @@ if id "$username" >/dev/null 2>&1; then
 fi
 
 apk update
-apk add doas git fish
+apk add doas
+apk add git
+apk add fish
 
 fish_shell=$(command -v fish)
 if [ ! -x "$fish_shell" ]; then
