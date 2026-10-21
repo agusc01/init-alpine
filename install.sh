@@ -50,3 +50,6 @@ sh "$HOME/.config/init-alpine/basics/office/install.sh"
 
 # Screen
 sh "$HOME/.config/init-alpine/basics/screen/install.sh"
+
+# Fonts
+sh "$HOME/.config/init-alpine/fonts/install.sh"
