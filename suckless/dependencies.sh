@@ -7,6 +7,9 @@ doas apk add git                # Clone source repositories.
 doas apk add pkgconf            # Find compiler and linker flags.
 doas apk add ncurses            # Provide tic for st terminfo installation.
 
+# Linux headers.
+doas apk add linux-headers      # Provide kernel headers required to compile slock.
+
 # X11 libraries.
 doas apk add libx11-dev         # Core X11 development library.
 doas apk add libxft-dev         # Render fonts using Xft.
