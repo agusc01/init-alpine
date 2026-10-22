@@ -1,5 +1,10 @@
 #!/bin/sh
 set -eu
 
+# Restore the selected wallpaper without blocking the desktop startup.
+if ! sh "$HOME/.config/init-alpine/backgrounds/apply.sh"; then
+    echo "Warning: Could not restore the wallpaper." >&2
+fi
+
 # Start the dwm desktop session.
 exec dbus-run-session -- /usr/local/bin/dwm

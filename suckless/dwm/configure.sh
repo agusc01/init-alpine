@@ -28,22 +28,30 @@ if [ -e "$destination_file" ]; then
         exit 0
     fi
 
-    # Only migrate the exact session template previously installed by init-alpine.
+    # Only migrate session templates previously installed by init-alpine.
     legacy_content='#!/bin/sh
 set -eu
 
 # Start the dwm desktop session.
 exec dbus-run-session -- dwm'
 
-    if [ "$(cat "$destination_file")" != "$legacy_content" ]; then
+    previous_content='#!/bin/sh
+set -eu
+
+# Start the dwm desktop session.
+exec dbus-run-session -- /usr/local/bin/dwm'
+
+    existing_content=$(cat "$destination_file")
+    if [ "$existing_content" != "$legacy_content" ] &&
+       [ "$existing_content" != "$previous_content" ]; then
         echo "Existing custom .xinitrc found. No changes made."
         exit 0
     fi
 
-    # Preserve the previous session configuration before updating it.
-    backup_file="$destination_file.init-alpine.bak"
+    # Preserve the previous configuration before enabling wallpapers.
+    backup_file="$destination_file.init-alpine-backgrounds.bak"
     if [ -e "$backup_file" ] || [ -L "$backup_file" ]; then
-        echo "Existing .xinitrc backup found. No changes made."
+        echo "Existing .xinitrc wallpaper backup found. No changes made."
         exit 0
     fi
 

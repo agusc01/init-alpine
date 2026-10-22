@@ -54,6 +54,9 @@ sh "$HOME/.config/init-alpine/basics/screen/install.sh"
 # Fonts
 sh "$HOME/.config/init-alpine/fonts/install.sh"
 
+# Backgrounds
+sh "$HOME/.config/init-alpine/backgrounds/install.sh"
+
 # Xorg
 sh "$HOME/.config/init-alpine/xorg/install.sh"
 
