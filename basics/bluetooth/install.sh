@@ -5,7 +5,7 @@ set -eu
 doas apk add bluez
 doas apk add bluez-openrc
 doas apk add dbus
-doas apk add rfkill
+doas apk add util-linux-misc  # Provide rfkill for wireless device control.
 
 # Graphical Bluetooth manager.
 doas apk add blueman
