@@ -3,11 +3,17 @@ set -eu
 
 # Lightweight image viewers.
 doas apk add feh             # Lightweight image viewer and desktop wallpaper manager.
-doas apk add pqiv            # Fast image viewer with keyboard navigation.
+doas apk add nsxiv           # Minimal image viewer with keyboard navigation.
+
+# Alternative image viewers.
+# doas apk add imv-x11        # Lightweight keyboard-driven image viewer for X11.
 
 # Image editors.
-doas apk add mtpaint         # Lightweight image and pixel art editor.
+doas apk add drawing         # Simple painting and image editing application.
 doas apk add gimp            # Advanced image editing and manipulation.
+
+# Alternative image editors.
+# doas apk add pinta          # Paint-style editor with layers and effects.
 
 # Color tools.
 doas apk add gpick           # Advanced color picker and palette manager.
