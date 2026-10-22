@@ -56,3 +56,21 @@ sh "$HOME/.config/init-alpine/fonts/install.sh"
 
 # Xorg
 sh "$HOME/.config/init-alpine/xorg/install.sh"
+
+# Suckless dependencies.
+sh "$HOME/.config/init-alpine/suckless/dependencies.sh"
+
+# Terminal.
+sh "$HOME/.config/init-alpine/suckless/st/install.sh"
+
+# Application launcher.
+# sh "$HOME/.config/init-alpine/suckless/dmenu/install.sh"
+
+# Window manager.
+sh "$HOME/.config/init-alpine/suckless/dwm/install.sh"
+
+# Screen locker.
+sh "$HOME/.config/init-alpine/suckless/slock/install.sh"
+
+# Keyboard shortcuts.
+sh "$HOME/.config/init-alpine/suckless/dshortcuts/install.sh"
