@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+# Start the dwm desktop session.
+exec dbus-run-session -- dwm
