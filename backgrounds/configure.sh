@@ -1,12 +1,6 @@
 #!/bin/sh
 set -eu
 
-# Require an active graphical session.
-if [ -z "${DISPLAY:-}" ]; then
-    echo "Error: Run this script inside an X11 session." >&2
-    exit 1
-fi
-
 # Directories and files.
 wallpaper_directory="$HOME/Pictures/backgrounds"
 config_directory="$HOME/.config/backgrounds"
@@ -16,6 +10,20 @@ selection_file="$config_directory/current"
 if [ ! -d "$wallpaper_directory" ]; then
     echo "Error: Wallpaper directory not found." >&2
     exit 1
+fi
+
+# Preserve links and unexpected configuration files.
+if [ -L "$selection_file" ] || {
+    [ -e "$selection_file" ] && [ ! -f "$selection_file" ]
+}; then
+    echo "Error: Unexpected wallpaper configuration file." >&2
+    exit 1
+fi
+
+# Read the current selection, when available.
+current_filename=""
+if [ -f "$selection_file" ]; then
+    IFS= read -r current_filename < "$selection_file" || :
 fi
 
 # Find supported image files.
@@ -34,10 +42,18 @@ echo "Select a wallpaper:"
 echo
 
 index=0
+current_available=0
+
 for wallpaper in "$@"; do
     [ -f "$wallpaper" ] || continue
+
     index=$((index + 1))
-    printf '%s) %s\n' "$index" "${wallpaper##*/}"
+    filename="${wallpaper##*/}"
+    printf '%s) %s\n' "$index" "$filename"
+
+    if [ -n "$current_filename" ] && [ "$filename" = "$current_filename" ]; then
+        current_available=1
+    fi
 done
 
 if [ "$index" -eq 0 ]; then
@@ -45,50 +61,64 @@ if [ "$index" -eq 0 ]; then
     exit 1
 fi
 
-# Read the selection.
+# Show the previous selection if the image is still available.
+if [ "$current_available" -eq 1 ]; then
+    printf '\nCurrent wallpaper: %s\n' "$current_filename"
+fi
+
+# Read the selection from the terminal, even before X11 starts.
 echo
-printf "Selection [1-%s]: " "$index"
+if [ "$current_available" -eq 1 ]; then
+    printf 'Selection [1-%s, Enter to keep current]: ' "$index"
+else
+    printf 'Selection [1-%s]: ' "$index"
+fi
 IFS= read -r selection || selection=""
 
-case "$selection" in
-    ''|*[!0-9]*)
-        echo "Invalid selection."
-        exit 1
-        ;;
-esac
-
-# Find the selected wallpaper.
-index=0
 filename=""
-
-for wallpaper in "$@"; do
-    [ -f "$wallpaper" ] || continue
-    index=$((index + 1))
-
-    if [ "$selection" = "$index" ]; then
-        filename="${wallpaper##*/}"
-        break
+if [ -z "$selection" ]; then
+    if [ "$current_available" -ne 1 ]; then
+        echo "Error: Select a wallpaper number." >&2
+        exit 1
     fi
-done
+
+    filename="$current_filename"
+else
+    case "$selection" in
+        *[!0-9]*)
+            echo "Error: Invalid selection." >&2
+            exit 1
+            ;;
+    esac
+
+    index=0
+    for wallpaper in "$@"; do
+        [ -f "$wallpaper" ] || continue
+
+        index=$((index + 1))
+        if [ "$selection" = "$index" ]; then
+            filename="${wallpaper##*/}"
+            break
+        fi
+    done
+fi
 
 if [ -z "$filename" ]; then
-    echo "Invalid selection."
+    echo "Error: Invalid selection." >&2
     exit 1
 fi
 
-# Create configuration directory.
+# Save only when the selection has changed.
 mkdir -vp "$config_directory"
-
-# Preserve links and unexpected configuration files.
-if [ -L "$selection_file" ] || {
-    [ -e "$selection_file" ] && [ ! -f "$selection_file" ]
-}; then
-    echo "Error: Unexpected wallpaper configuration file." >&2
-    exit 1
+if [ "$filename" != "$current_filename" ] || [ ! -f "$selection_file" ]; then
+    printf '%s\n' "$filename" > "$selection_file"
 fi
-
-# Save the selection and apply it immediately.
-printf '%s\n' "$filename" > "$selection_file"
-sh "$HOME/.config/init-alpine/backgrounds/apply.sh"
 
 echo "Wallpaper selected: $filename"
+
+# Apply immediately in X11, or restore it when dwm starts.
+if [ -n "${DISPLAY:-}" ]; then
+    sh "$HOME/.config/init-alpine/backgrounds/apply.sh"
+else
+    echo "Wallpaper will be applied when dwm starts."
+fi
