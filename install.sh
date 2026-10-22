@@ -61,6 +61,12 @@ sh "$HOME/.config/init-alpine/backgrounds/configure.sh"
 # Xorg
 sh "$HOME/.config/init-alpine/xorg/install.sh"
 
+# Compositor.
+sh "$HOME/.config/init-alpine/compositor/picom/install.sh"
+
+# Notifications.
+sh "$HOME/.config/init-alpine/notifications/dunst/install.sh"
+
 # Suckless dependencies.
 sh "$HOME/.config/init-alpine/suckless/dependencies.sh"
 

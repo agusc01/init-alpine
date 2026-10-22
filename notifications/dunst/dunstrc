@@ -1,0 +1,22 @@
+[global]
+    # Appearance.
+    font = "monospace 10"
+    width = 300
+    origin = top-right
+    offset = (15, 15)
+
+    # Borders.
+    frame_width = 1
+    corner_radius = 0
+
+    # Behaviour.
+    notification_limit = 5
+
+[urgency_low]
+    timeout = 3
+
+[urgency_normal]
+    timeout = 5
+
+[urgency_critical]
+    timeout = 0

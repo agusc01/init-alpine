@@ -35,23 +35,35 @@ set -eu
 # Start the dwm desktop session.
 exec dbus-run-session -- dwm'
 
-    previous_content='#!/bin/sh
+    absolute_path_content='#!/bin/sh
 set -eu
+
+# Start the dwm desktop session.
+exec dbus-run-session -- /usr/local/bin/dwm'
+
+    wallpaper_content='#!/bin/sh
+set -eu
+
+# Restore the selected wallpaper without blocking the desktop startup.
+if ! sh "$HOME/.config/init-alpine/backgrounds/apply.sh"; then
+    echo "Warning: Could not restore the wallpaper." >&2
+fi
 
 # Start the dwm desktop session.
 exec dbus-run-session -- /usr/local/bin/dwm'
 
     existing_content=$(cat "$destination_file")
     if [ "$existing_content" != "$legacy_content" ] &&
-       [ "$existing_content" != "$previous_content" ]; then
+       [ "$existing_content" != "$absolute_path_content" ] &&
+       [ "$existing_content" != "$wallpaper_content" ]; then
         echo "Existing custom .xinitrc found. No changes made."
         exit 0
     fi
 
-    # Preserve the previous configuration before enabling wallpapers.
-    backup_file="$destination_file.init-alpine-backgrounds.bak"
+    # Back up the previous session before enabling the compositor and notifications.
+    backup_file="$destination_file.init-alpine-session.bak"
     if [ -e "$backup_file" ] || [ -L "$backup_file" ]; then
-        echo "Existing .xinitrc wallpaper backup found. No changes made."
+        echo "Existing .xinitrc session backup found. No changes made."
         exit 0
     fi
 
@@ -59,7 +71,7 @@ exec dbus-run-session -- /usr/local/bin/dwm'
     cp -v "$source_file" "$destination_file"
     echo "Previous init-alpine .xinitrc updated."
 else
-    # Create the session configuration only when it does not exist.
+    # Install the new session configuration.
     cp -v "$source_file" "$destination_file"
     echo "dwm session configured."
 fi
