@@ -68,6 +68,7 @@ sh "$HOME/.config/init-alpine/suckless/st/install.sh"
 
 # Window manager.
 sh "$HOME/.config/init-alpine/suckless/dwm/install.sh"
+sh "$HOME/.config/init-alpine/suckless/dwm/configure.sh"
 
 # Screen locker.
 sh "$HOME/.config/init-alpine/suckless/slock/install.sh"
