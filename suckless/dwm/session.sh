@@ -18,5 +18,11 @@ if command -v dunst >/dev/null 2>&1; then
     dunst --config "$HOME/.config/dunst/dunstrc" &
 fi
 
+# Start the status bar.
+if [ -x "$HOME/.local/bin/dbar_start" ]; then
+    "$HOME/.local/bin/dbar_start" ||
+        echo "Warning: Could not start dbar." >&2
+fi
+
 # Start the window manager.
 exec /usr/local/bin/dwm
