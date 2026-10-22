@@ -18,6 +18,9 @@ doas apk add eudev                # Detect and manage system devices.
 # Session communication.
 doas apk add dbus                 # Provide communication between desktop applications.
 
+# Configure the eudev device manager so Xorg receives keyboard and mouse events.
+sh "$HOME/.config/init-alpine/xorg/configure.sh"
+
 # Optional terminal.
 # doas apk add xterm              # Alternative X11 terminal.
 

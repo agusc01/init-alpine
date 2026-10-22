@@ -1,19 +1,9 @@
 #!/bin/sh
 set -eu
 
-echo "Alpine recommends eudev for graphical environments."
-echo "Changing device managers may require a reboot."
-echo
+# Alpine defaults to mdev; Xorg's libinput driver needs eudev rules for devices.
+# setup-devd handles replacing the old manager and enabling the required services.
+doas setup-devd udev
 
-printf "Configure eudev? [y/N]: "
-IFS= read -r answer || answer=""
-
-case "$answer" in
-    y|Y)
-        doas setup-devd udev
-        echo "Device manager configured."
-        ;;
-    *)
-        echo "Device manager configuration skipped."
-        ;;
-esac
+echo "eudev configured for Xorg input devices."
+echo "Reboot recommended if switching from mdev."
