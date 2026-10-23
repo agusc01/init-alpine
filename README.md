@@ -111,7 +111,10 @@ Fish can find user-installed executables in `~/.local/bin`. This is where
 `agusc01/sh` and `agusc01/menus` install commands such as `wifi_status`,
 `dmenu_wifi`, and `fzf_wifi`. The setup writes a separate, managed
 `~/.config/fish/conf.d/90-init-alpine-local-bin.fish` file and **never edits**
-`config.fish` or overwrites user-modified configuration.
+`config.fish` or overwrites user-modified configuration. It writes directly
+into Fish's `PATH`, avoiding global `fish_user_paths` shadowing universal
+settings. An older exact `init-alpine`-generated setting using `-g` is
+safely upgraded when rerunning the setup script.
 
 On an existing Alpine installation, configure only the PATH without installing
 other packages or rebooting:
@@ -123,7 +126,7 @@ sh "$HOME/.config/init-alpine/basics/core/configure.sh"
 Open a new Fish shell, or update the current shell immediately:
 
 ```fish
-fish_add_path -g "$HOME/.local/bin"
+fish_add_path --path "$HOME/.local/bin"
 command -s wifi_status
 wifi_status
 ```
