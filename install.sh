@@ -14,6 +14,7 @@ sh "$HOME/.config/init-alpine/basics/compiler/install.sh"
 
 # Core
 sh "$HOME/.config/init-alpine/basics/core/install.sh"
+sh "$HOME/.config/init-alpine/basics/core/configure.sh"
 
 # Disk
 sh "$HOME/.config/init-alpine/basics/disk/install.sh"
