@@ -7,6 +7,7 @@ trap 'rm -Rv "$workspace" >/dev/null' 0
 
 sh -n "$repository/basics/core/configure.sh"
 sh -n "$repository/install.sh"
+sh -n "$repository/bootstrap.sh"
 
 HOME="$workspace/user"
 export HOME
@@ -33,6 +34,20 @@ sh "$repository/basics/core/configure.sh" >/dev/null
     echo 'Error: Re-running setup unexpectedly changed the configuration.' >&2
     exit 1
 }
+
+# When Fish is available, prove the new config works even with a global
+# fish_user_paths variable masking the user's universal configuration.
+if command -v fish >/dev/null 2>&1; then
+    mkdir -vp "$HOME/.local/bin" >/dev/null
+    fish --no-config -c '
+        set -g fish_user_paths /sbin /usr/sbin
+        source "$HOME/.config/fish/conf.d/90-init-alpine-local-bin.fish"
+        contains -- "$HOME/.local/bin" $PATH
+    ' || {
+        echo 'Error: Fish failed to resolve user commands when fish_user_paths is global.' >&2
+        exit 1
+    }
+fi
 
 # The PR's earlier managed config must migrate without affecting other files.
 printf '%s\n' 'fish_add_path -g -- "$HOME/.local/bin"' > "$config_file"
