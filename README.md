@@ -38,3 +38,16 @@ Run `sh bootstrap.sh` from a local checkout if you have already downloaded the r
 ## Repository language
 
 All code, identifiers, comments, CLI messages, documentation, tests, and contribution materials must be written in English. See [AGENTS.md](AGENTS.md).
+
+## Graphical status bar
+
+The main `install.sh` installs [agusc01/dbar](https://github.com/agusc01/dbar) after dwm.
+The `status/dbar/install.sh` module preserves existing checkouts and does not run
+`git pull` automatically. It runs dbar's installer, which provides `xsetroot`
+and the `dbar_*` commands. The dwm session starts dbar automatically when installed.
+
+Standalone installation:
+
+```sh
+sh "$HOME/.config/init-alpine/status/dbar/install.sh"
+```

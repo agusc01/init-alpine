@@ -80,6 +80,9 @@ sh "$HOME/.config/init-alpine/suckless/st/install.sh"
 sh "$HOME/.config/init-alpine/suckless/dwm/install.sh"
 sh "$HOME/.config/init-alpine/suckless/dwm/configure.sh"
 
+# Compact X11 status bar.
+sh "$HOME/.config/init-alpine/status/dbar/install.sh"
+
 # Screen locker.
 sh "$HOME/.config/init-alpine/suckless/slock/install.sh"
 
