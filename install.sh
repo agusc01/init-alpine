@@ -73,8 +73,11 @@ sh "$HOME/.config/init-alpine/suckless/dependencies.sh"
 # Terminal.
 sh "$HOME/.config/init-alpine/suckless/st/install.sh"
 
-# Application launcher.
-# sh "$HOME/.config/init-alpine/suckless/dmenu/install.sh"
+# Terminal menu selector (also available on the Linux console).
+sh "$HOME/.config/init-alpine/menus/install.sh"
+
+# Lightweight X11 menu engine.
+sh "$HOME/.config/init-alpine/suckless/dmenu/install.sh"
 
 # Window manager.
 sh "$HOME/.config/init-alpine/suckless/dwm/install.sh"
