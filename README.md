@@ -51,3 +51,55 @@ Standalone installation:
 ```sh
 sh "$HOME/.config/init-alpine/status/dbar/install.sh"
 ```
+
+## Menu engines (dmenu and fzf)
+
+The main `install.sh` installs both selectable interfaces for the upcoming
+[agusc01/menus](https://github.com/agusc01/menus) project:
+
+- `fzf` is the optional-preview terminal selector from Alpine `community` and works without X11.
+- The existing `suckless/dmenu/install.sh` builds and installs the
+  [agusc01/dmenu](https://github.com/agusc01/dmenu) fork for X11.
+
+Install or repair either engine without rerunning the entire desktop setup:
+
+```sh
+sh "$HOME/.config/init-alpine/menus/install.sh"
+sh "$HOME/.config/init-alpine/suckless/dmenu/install.sh"
+```
+
+The `menus/install.sh` script in this repository installs the **fzf package only**.
+It does not yet clone or configure `agusc01/menus` or `agusc01/sh`; their application
+installers will be integrated once those repositories contain their first modules.
+No `linux-tools`, `linux-setup` or `linux-doctor` dependency is used.
+
+## Optional NetworkManager CLI backend
+
+The default `basics/wifi/install.sh` still installs the existing Alpine Wi-Fi
+utilities and `wpa_supplicant`. It does **not** switch network managers.
+
+If you intend to migrate Wi-Fi controls to the `nmcli` backend, install its
+packages **separately**, while connected through a working network:
+
+```sh
+sh "$HOME/.config/init-alpine/basics/wifi/networkmanager/install.sh"
+command -v nmcli
+```
+
+This installs `networkmanager`, `networkmanager-cli`, `networkmanager-wifi`
+and `networkmanager-openrc` from the enabled `community` repository. The
+installer deliberately does **not** start, stop or enable services; no existing
+network configuration or startup behavior is changed. Installing the CLI alone
+does not make `nmcli` an operational Wi-Fi backend.
+
+**Do not enable NetworkManager alongside an existing service managing the same
+network interface.** Migrating the active network needs an explicit, separate,
+tested plan (ideally from a local console, with rollback steps); see
+[Alpine's NetworkManager guide](https://wiki.alpinelinux.org/wiki/NetworkManager).
+The new `agusc01/sh` Wi-Fi implementation should detect a running/usable backend
+and fail clearly instead of automatically changing the user's network manager.
+
+To validate the package installers without changing host packages or services:
+
+```sh "$HOME/.config/init-alpine/tests/menu-installers.sh"
+```
